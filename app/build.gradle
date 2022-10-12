@@ -1,0 +1,54 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs'
+    id 'kotlin-parcelize'
+}
+
+apply from: '../shared-dependencies.gradle'
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.rijaldev.expertmovies"
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    viewBinding {
+        enabled true
+    }
+    dynamicFeatures = [':favorite', ':search']
+}
+
+dependencies {
+    implementation project(":core")
+
+    implementation files('../app/libs/YouTubeAndroidPlayerApi.jar')
+
+    //navigation
+    api 'androidx.navigation:navigation-fragment-ktx:2.5.2'
+    api 'androidx.navigation:navigation-ui-ktx:2.5.2'
+    api 'androidx.navigation:navigation-dynamic-features-fragment:2.5.2'
+    implementation 'androidx.core:core-splashscreen:1.0.0'
+}

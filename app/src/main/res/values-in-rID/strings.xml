@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Expert Movies</string>
+    <string name="title_favorite">Favorit</string>
+    <string name="title_search">Cari</string>
+    <string name="try_again">Coba lagi</string>
+    <string name="release">Rilis</string>
+    <string name="language">Bahasa</string>
+    <string name="rating">Rating</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="popular_movies">Popular Movies</string>
+    <string name="upcoming_movies">Upcoming Movies</string>
+    <string name="top_rated_movies">Top Rated Movies</string>
+    <string name="home">Home</string>
+    <string name="search">Cari</string>
+    <string name="favorite">Favorit</string>
+    <string name="more">Lainnya</string>
+    <string name="add_to_favorite">Tambah ke Favorit</string>
+    <string name="find_text">Cari ribuan film gratis sekarang!</string>
+    <string name="empty_favorite">Kamu belum mempunyai daftar favorit</string>
+    <string name="search_hint">Cari film…</string>
+    <string name="user_settings">User dan Setting</string>
+</resources>

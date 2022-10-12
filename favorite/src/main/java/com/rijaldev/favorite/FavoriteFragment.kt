@@ -1,0 +1,92 @@
+package com.rijaldev.favorite
+
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.ActivityNavigatorExtras
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.rijaldev.core.ui.adapter.MovieListAdapter
+import com.rijaldev.expertmovies.di.FavoriteModuleDependencies
+import com.rijaldev.favorite.databinding.FragmentFavoriteBinding
+import com.rijaldev.favorite.di.DaggerFavoriteComponent
+import com.rijaldev.favorite.viewmodel.ViewModelFactory
+import dagger.hilt.android.EntryPointAccessors
+import javax.inject.Inject
+
+class FavoriteFragment : Fragment() {
+
+    private var _binding: FragmentFavoriteBinding? = null
+    private val binding get() = _binding
+
+    @Inject
+    lateinit var factory: ViewModelFactory
+    private val viewModel: FavoriteViewModel by viewModels {
+        factory
+    }
+
+    override fun onAttach(context: Context) {
+        DaggerFavoriteComponent.builder()
+            .context(requireActivity())
+            .appDependencies(
+                EntryPointAccessors.fromApplication(
+                    requireActivity().applicationContext,
+                    FavoriteModuleDependencies::class.java
+                )
+            ).build().inject(this)
+        super.onAttach(context)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpView()
+    }
+
+    private fun setUpView() {
+        val adapter = MovieListAdapter { movie, iv ->
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                requireActivity(),
+                Pair(iv, "iv_movie")
+            )
+            val extras = ActivityNavigatorExtras(options)
+            val data = FavoriteFragmentDirections.actionFavoriteFragmentToDetailActivity(movie)
+            findNavController().navigate(data, extras)
+        }
+        binding?.rvFavorite?.apply {
+            layoutManager = LinearLayoutManager(context)
+            this.adapter = adapter
+            setHasFixedSize(true)
+        }
+        viewModel.favoriteMovies.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+            isMoviesEmpty(it.isEmpty())
+        }
+    }
+
+    private fun isMoviesEmpty(isEmpty: Boolean) {
+        binding?.apply {
+            ivNoData.isVisible = isEmpty
+            tvNoData.isVisible = isEmpty
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
