@@ -93,25 +93,6 @@ object DataMapper {
             )
         }
 
-    fun mapMovieResponseToDomain(input: List<MovieItem>, movieType: MovieType): List<Movie> =
-        input.map {
-            Movie(
-                it.id,
-                it.overview,
-                it.backdropPath,
-                it.originalLanguage,
-                it.releaseDate,
-                it.popularity,
-                it.voteAverage,
-                it.title,
-                it.genreIds,
-                it.voteCount,
-                it.posterPath,
-                movieType.name,
-                false
-            )
-        }
-
     fun mapMovieDomainToEntity(it: Movie): MovieEntity =
         MovieEntity(
             it.id,

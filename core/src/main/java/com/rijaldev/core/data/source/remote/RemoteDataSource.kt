@@ -1,5 +1,6 @@
 package com.rijaldev.core.data.source.remote
 
+import android.util.Log
 import com.rijaldev.core.BuildConfig
 import com.rijaldev.core.data.source.remote.response.MovieItem
 import com.rijaldev.core.data.source.remote.retrofit.ApiResponse
@@ -32,6 +33,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
                 if (data.isNotEmpty()) emit(ApiResponse.Success(data))
                 else emit(ApiResponse.Empty)
             } catch (e: Exception) {
+                Log.d("TAGKUU", "getMoviesNowPlaying: ${e.message}")
                 emit(ApiResponse.Error(e.message.toString()))
             }
         }.flowOn(Dispatchers.IO)
@@ -71,8 +73,6 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
                 emit(ApiResponse.Error(e.message.toString()))
             }
         }.flowOn(Dispatchers.IO)
-
-    suspend fun searchMovies(query: String) = apiService.searchMovies(BuildConfig.API_KEY, query)
 
     suspend fun getVideos(movieId: Int) = apiService.getVideos(movieId.toString(), BuildConfig.API_KEY)
 }

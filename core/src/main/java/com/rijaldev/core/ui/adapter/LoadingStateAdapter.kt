@@ -1,4 +1,4 @@
-package com.rijaldev.expertmovies.ui.adapter
+package com.rijaldev.core.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.core.view.isVisible
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.rijaldev.expertmovies.databinding.ItemLoadingBinding
+import com.rijaldev.core.databinding.ItemLoadingBinding
 
 class LoadingStateAdapter(private val retry: () -> Unit) : LoadStateAdapter<LoadingStateAdapter.LoadingStateViewHolder>() {
 

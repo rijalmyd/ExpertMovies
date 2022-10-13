@@ -2,16 +2,14 @@ package com.rijaldev.core.data.repository
 
 import com.rijaldev.core.data.source.local.LocalDataSource
 import com.rijaldev.core.data.source.remote.RemoteDataSource
-import com.rijaldev.core.data.source.remote.response.MovieItem
-import com.rijaldev.core.data.source.remote.retrofit.ApiResponse
 import com.rijaldev.core.domain.model.Movie
 import com.rijaldev.core.domain.model.MovieType
 import com.rijaldev.core.domain.model.Video
 import com.rijaldev.core.domain.repository.MovieRepository
 import com.rijaldev.core.utils.DataMapper
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,119 +19,95 @@ class MovieRepositoryImpl @Inject constructor(
     private val local: LocalDataSource
 ) : MovieRepository {
 
-    override fun getTrendingMovies(): Flow<Resource<List<Movie>>> =
-        object : NetworkBoundResource<List<Movie>, List<MovieItem>>() {
-            override fun loadFromDB(): Flow<List<Movie>> =
-                local.getMovies(MovieType.TRENDING.name).map {
-                    DataMapper.mapMovieEntitiesToMovieDomain(it)
-                }
-
-            override fun shouldFetch(data: List<Movie>?): Boolean =
-                data == null || data.isEmpty()
-
-            override suspend fun createCall(): Flow<ApiResponse<List<MovieItem>>> =
-                remote.getTrendingMovies()
-
-            override suspend fun saveCallResult(data: List<MovieItem>) {
-                val entity = DataMapper.mapMovieResponseToEntity(data, MovieType.TRENDING)
-                local.insertMovies(entity)
+    override fun getTrendingMovies(): Flow<Resource<List<Movie>>> = networkBoundResource(
+        query = {
+            local.getMovies(MovieType.TRENDING.name).map {
+                DataMapper.mapMovieEntitiesToMovieDomain(it)
             }
-        }.asFlow()
-
-    override fun getMoviesNowPlaying(): Flow<Resource<List<Movie>>> =
-        object : NetworkBoundResource<List<Movie>, List<MovieItem>>() {
-            override fun loadFromDB(): Flow<List<Movie>> =
-                local.getMovies(MovieType.NOW_PLAYING.name).map {
-                    DataMapper.mapMovieEntitiesToMovieDomain(it)
-                }
-
-            override fun shouldFetch(data: List<Movie>?): Boolean =
-                data == null || data.isEmpty()
-
-            override suspend fun createCall(): Flow<ApiResponse<List<MovieItem>>> =
-                remote.getMoviesNowPlaying()
-
-            override suspend fun saveCallResult(data: List<MovieItem>) {
-                val entity = DataMapper.mapMovieResponseToEntity(data, MovieType.NOW_PLAYING)
-                local.insertMovies(entity)
-            }
-        }.asFlow()
-
-    override fun getPopularMovies(): Flow<Resource<List<Movie>>> =
-        object : NetworkBoundResource<List<Movie>, List<MovieItem>>() {
-            override fun loadFromDB(): Flow<List<Movie>> =
-                local.getMovies(MovieType.POPULAR.name).map {
-                    DataMapper.mapMovieEntitiesToMovieDomain(it)
-                }
-
-            override fun shouldFetch(data: List<Movie>?): Boolean =
-                data == null || data.isEmpty()
-
-            override suspend fun createCall(): Flow<ApiResponse<List<MovieItem>>> =
-                remote.getPopularMovies()
-
-            override suspend fun saveCallResult(data: List<MovieItem>) {
-                val entity = DataMapper.mapMovieResponseToEntity(data, MovieType.POPULAR)
-                local.insertMovies(entity)
-            }
-        }.asFlow()
-
-    override fun getUpcomingMovies(): Flow<Resource<List<Movie>>> =
-        object : NetworkBoundResource<List<Movie>, List<MovieItem>>() {
-            override fun loadFromDB(): Flow<List<Movie>> =
-                local.getMovies(MovieType.UPCOMING.name).map {
-                    DataMapper.mapMovieEntitiesToMovieDomain(it)
-                }
-
-            override fun shouldFetch(data: List<Movie>?): Boolean =
-                data == null || data.isEmpty()
-
-            override suspend fun createCall(): Flow<ApiResponse<List<MovieItem>>> =
-                remote.getUpcomingMovies()
-
-            override suspend fun saveCallResult(data: List<MovieItem>) {
-                val entity = DataMapper.mapMovieResponseToEntity(data, MovieType.UPCOMING)
-                local.insertMovies(entity)
-            }
-        }.asFlow()
-
-    override fun getTopRatedMovies(): Flow<Resource<List<Movie>>> =
-        object : NetworkBoundResource<List<Movie>, List<MovieItem>>() {
-            override fun loadFromDB(): Flow<List<Movie>> =
-                local.getMovies(MovieType.TOP_RATED.name).map {
-                    DataMapper.mapMovieEntitiesToMovieDomain(it)
-                }
-
-            override fun shouldFetch(data: List<Movie>?): Boolean =
-                data == null || data.isEmpty()
-
-            override suspend fun createCall(): Flow<ApiResponse<List<MovieItem>>> =
-                remote.getTopRatedMovies()
-
-            override suspend fun saveCallResult(data: List<MovieItem>) {
-                val entity = DataMapper.mapMovieResponseToEntity(data, MovieType.TOP_RATED)
-                local.insertMovies(entity)
-            }
-        }.asFlow()
-
-    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-    override fun searchMovies(query: StateFlow<String>): Flow<Resource<List<Movie>>> =
-        flow {
-            emit(Resource.Loading())
-            try {
-                val result = query.debounce(300)
-                    .distinctUntilChanged()
-                    .filter { it.trim().isNotEmpty() }
-                    .mapLatest {
-                        remote.searchMovies(it).results
-                    }.map {
-                        Resource.Success(DataMapper.mapMovieResponseToDomain(it, MovieType.SEARCH))
-                    }
-                emitAll(result)
-            } catch (e: Exception) {
-                emit(Resource.Error(e.message.toString()))
-            }
+        },
+        fetch = {
+            remote.getTrendingMovies()
+        },
+        saveFetchResult = {
+            val entity = DataMapper.mapMovieResponseToEntity(it, MovieType.TRENDING)
+            local.insertMovies(entity)
+        },
+        shouldFetch = {
+            it == null || it.isEmpty()
         }
+    )
+
+    override fun getMoviesNowPlaying(): Flow<Resource<List<Movie>>> = networkBoundResource(
+        query = {
+            local.getMovies(MovieType.NOW_PLAYING.name).map {
+                DataMapper.mapMovieEntitiesToMovieDomain(it)
+            }
+        },
+        fetch = {
+            remote.getMoviesNowPlaying()
+        },
+        saveFetchResult = {
+            val entity = DataMapper.mapMovieResponseToEntity(it, MovieType.NOW_PLAYING)
+            local.insertMovies(entity)
+        },
+        shouldFetch = {
+            it == null || it.isEmpty()
+        }
+    )
+
+    override fun getPopularMovies(): Flow<Resource<List<Movie>>> = networkBoundResource(
+        query = {
+            local.getMovies(MovieType.POPULAR.name).map {
+                DataMapper.mapMovieEntitiesToMovieDomain(it)
+            }
+        },
+        fetch = {
+            remote.getPopularMovies()
+        },
+        saveFetchResult = {
+            val entity = DataMapper.mapMovieResponseToEntity(it, MovieType.POPULAR)
+            local.insertMovies(entity)
+        },
+        shouldFetch = {
+            it == null || it.isEmpty()
+        }
+    )
+
+    override fun getUpcomingMovies(): Flow<Resource<List<Movie>>> = networkBoundResource(
+        query = {
+            local.getMovies(MovieType.UPCOMING.name).map {
+                DataMapper.mapMovieEntitiesToMovieDomain(it)
+            }
+        },
+        fetch = {
+            remote.getUpcomingMovies()
+        },
+        saveFetchResult = {
+            val entity = DataMapper.mapMovieResponseToEntity(it, MovieType.UPCOMING)
+            local.insertMovies(entity)
+        },
+        shouldFetch = {
+            it == null || it.isEmpty()
+        }
+    )
+
+    override fun getTopRatedMovies(): Flow<Resource<List<Movie>>> = networkBoundResource(
+        query = {
+            local.getMovies(MovieType.TOP_RATED.name).map {
+                DataMapper.mapMovieEntitiesToMovieDomain(it)
+            }
+        },
+        fetch = {
+            remote.getTopRatedMovies()
+        },
+        saveFetchResult = {
+            val entity = DataMapper.mapMovieResponseToEntity(it, MovieType.TOP_RATED)
+            local.insertMovies(entity)
+        },
+        shouldFetch = {
+            it == null || it.isEmpty()
+        }
+    )
 
     override fun getVideos(movieId: Int): Flow<Resource<List<Video>?>> =
         flow {

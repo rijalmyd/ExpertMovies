@@ -16,8 +16,8 @@ import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rijaldev.expertmovies.di.SearchModuleDependencies
-import com.rijaldev.expertmovies.ui.adapter.LoadingStateAdapter
-import com.rijaldev.expertmovies.ui.adapter.MoviePagingAdapter
+import com.rijaldev.core.ui.adapter.LoadingStateAdapter
+import com.rijaldev.core.ui.adapter.MoviePagingAdapter
 import com.rijaldev.search.databinding.FragmentSearchBinding
 import com.rijaldev.search.di.DaggerSearchComponent
 import com.rijaldev.search.viewmodel.ViewModelFactory

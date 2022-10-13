@@ -1,4 +1,4 @@
-package com.rijaldev.expertmovies.ui.adapter
+package com.rijaldev.core.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import com.rijaldev.core.databinding.ItemMovieLargeBinding
 import com.rijaldev.core.domain.model.Movie
 import com.rijaldev.core.utils.Extensions.showImageInto
 import com.rijaldev.core.utils.Extensions.toAnotherDate
-import com.rijaldev.expertmovies.ui.adapter.MovieAdapter.Companion.DIFF_CALLBACK
+import com.rijaldev.core.ui.adapter.MovieAdapter.Companion.DIFF_CALLBACK
 
 class MoviePagingAdapter(
     private val data: (Movie, ImageView) -> Unit

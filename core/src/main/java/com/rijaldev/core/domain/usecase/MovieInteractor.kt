@@ -5,6 +5,7 @@ import com.rijaldev.core.domain.repository.MovieRepository
 import javax.inject.Inject
 
 class MovieInteractor @Inject constructor(private val movieRepository: MovieRepository) : MovieUseCase {
+
     override fun getTrendingMovies() = movieRepository.getTrendingMovies()
 
     override fun getMoviesNowPlaying() = movieRepository.getMoviesNowPlaying()

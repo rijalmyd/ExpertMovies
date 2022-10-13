@@ -1,4 +1,4 @@
-package com.rijaldev.expertmovies.ui.adapter
+package com.rijaldev.core.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,11 +6,12 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.rijaldev.core.databinding.ItemMovieBinding
 import com.rijaldev.core.domain.model.Movie
 import com.rijaldev.core.utils.Extensions.showImageInto
-import com.rijaldev.expertmovies.databinding.ItemMovieBinding
 
-class MovieAdapter(val data: (Movie, ImageView) -> Unit) : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
+class MovieAdapter(val data: (Movie, ImageView) -> Unit) : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(
+    DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)

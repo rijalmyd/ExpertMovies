@@ -23,8 +23,8 @@ import com.rijaldev.core.data.repository.Resource
 import com.rijaldev.core.domain.model.MovieType
 import com.rijaldev.core.domain.model.Movie
 import com.rijaldev.expertmovies.databinding.FragmentHomeBinding
-import com.rijaldev.expertmovies.ui.adapter.MovieAdapter
-import com.rijaldev.expertmovies.ui.adapter.SliderAdapter
+import com.rijaldev.core.ui.adapter.MovieAdapter
+import com.rijaldev.core.ui.adapter.SliderAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
@@ -56,14 +56,12 @@ class HomeFragment : Fragment() {
 
     private fun showImageSlider() {
         handler = Handler(Looper.myLooper() as Looper)
-        val adapter = SliderAdapter {
+        val adapter = SliderAdapter(binding?.contentHome?.vpImage) {
 
         }
         viewModel.trendingMovies.observe(viewLifecycleOwner) { resource ->
             when (resource) {
-                is Resource.Loading -> {
-
-                }
+                is Resource.Loading -> {}
                 is Resource.Success -> {
                     adapter.submitList(resource.data)
                 }
@@ -112,14 +110,12 @@ class HomeFragment : Fragment() {
         }
         viewModel.nowPlayingMovies.observe(viewLifecycleOwner) { resource ->
             when (resource) {
-                is Resource.Loading -> {
-
-                }
+                is Resource.Loading -> {}
                 is Resource.Success -> {
                     adapter.submitList(resource.data)
                 }
                 is Resource.Error -> {
-
+                    Toast.makeText(requireActivity(), resource.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -138,15 +134,11 @@ class HomeFragment : Fragment() {
         }
         viewModel.popularMovies.observe(viewLifecycleOwner) { resource ->
             when (resource) {
-                is Resource.Loading -> {
-
-                }
+                is Resource.Loading -> {}
                 is Resource.Success -> {
                     adapter.submitList(resource.data)
                 }
-                is Resource.Error -> {
-
-                }
+                is Resource.Error -> {}
             }
         }
     }
@@ -164,15 +156,11 @@ class HomeFragment : Fragment() {
         }
         viewModel.upComingMovies.observe(viewLifecycleOwner) { resource ->
             when (resource) {
-                is Resource.Loading -> {
-
-                }
+                is Resource.Loading -> {}
                 is Resource.Success -> {
                     adapter.submitList(resource.data)
                 }
-                is Resource.Error -> {
-
-                }
+                is Resource.Error -> {}
             }
         }
     }
@@ -190,15 +178,11 @@ class HomeFragment : Fragment() {
         }
         viewModel.topRatedMovies.observe(viewLifecycleOwner) { resource ->
             when (resource) {
-                is Resource.Loading -> {
-
-                }
+                is Resource.Loading -> {}
                 is Resource.Success -> {
                     adapter.submitList(resource.data)
                 }
-                is Resource.Error -> {
-
-                }
+                is Resource.Error -> {}
             }
         }
     }
@@ -226,7 +210,7 @@ class HomeFragment : Fragment() {
 
     private val runnable = Runnable {
         binding?.contentHome?.vpImage?.apply {
-            currentItem += 1
+            setCurrentItem(currentItem + 1, true)
         }
     }
 

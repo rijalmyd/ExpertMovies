@@ -26,6 +26,7 @@
         <entry key="..\:/0_Expert/ExpertMovies/app/src/main/res/drawable/ic_search.xml" value="0.1675" />
         <entry key="..\:/0_Expert/ExpertMovies/app/src/main/res/drawable/ic_search_empty.xml" value="0.1465" />
         <entry key="..\:/0_Expert/ExpertMovies/app/src/main/res/drawable/ic_splash.xml" value="0.1" />
+        <entry key="..\:/0_Expert/ExpertMovies/app/src/main/res/drawable/ic_tes_hapus.xml" value="0.1" />
         <entry key="..\:/0_Expert/ExpertMovies/app/src/main/res/layout/activity_detail.xml" value="0.25" />
         <entry key="..\:/0_Expert/ExpertMovies/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/0_Expert/ExpertMovies/app/src/main/res/layout/activity_movies.xml" value="0.2" />
@@ -44,6 +45,10 @@
         <entry key="..\:/0_Expert/ExpertMovies/app/src/main/res/menu/menu_detail.xml" value="0.2" />
         <entry key="..\:/0_Expert/ExpertMovies/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.103" />
         <entry key="..\:/0_Expert/ExpertMovies/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.103" />
+        <entry key="..\:/0_Expert/ExpertMovies/core/src/main/res/drawable/gradient_top_bottom_bg.xml" value="0.1" />
+        <entry key="..\:/0_Expert/ExpertMovies/core/src/main/res/layout/item_image_slider.xml" value="0.1" />
+        <entry key="..\:/0_Expert/ExpertMovies/core/src/main/res/layout/item_loading.xml" value="0.1" />
+        <entry key="..\:/0_Expert/ExpertMovies/core/src/main/res/layout/item_movie.xml" value="0.1" />
         <entry key="..\:/0_Expert/ExpertMovies/core/src/main/res/layout/item_movie_large.xml" value="0.33" />
         <entry key="..\:/0_Expert/ExpertMovies/favorite/src/main/res/drawable/ic_no_favorite.xml" value="0.1465" />
         <entry key="..\:/0_Expert/ExpertMovies/favorite/src/main/res/layout/fragment_favorite.xml" value="0.18" />
