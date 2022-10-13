@@ -114,9 +114,7 @@ class HomeFragment : Fragment() {
                 is Resource.Success -> {
                     adapter.submitList(resource.data)
                 }
-                is Resource.Error -> {
-                    Toast.makeText(requireActivity(), resource.message, Toast.LENGTH_SHORT).show()
-                }
+                is Resource.Error -> {}
             }
         }
     }
