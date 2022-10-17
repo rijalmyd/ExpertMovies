@@ -12,6 +12,9 @@ import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +29,8 @@ import com.rijaldev.expertmovies.databinding.FragmentHomeBinding
 import com.rijaldev.core.ui.adapter.MovieAdapter
 import com.rijaldev.core.ui.adapter.SliderAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -34,7 +39,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var handler: Handler
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,9 +59,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun showImageSlider() {
-        handler = Handler(Looper.myLooper() as Looper)
-        val adapter = SliderAdapter(binding?.contentHome?.vpImage) {
-
+        val adapter = SliderAdapter { movie, iv ->
+            moveToDetail(movie, iv)
         }
         viewModel.trendingMovies.observe(viewLifecycleOwner) { resource ->
             when (resource) {
@@ -76,13 +79,11 @@ class HomeFragment : Fragment() {
             clipToPadding = false
             clipChildren = false
             getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    handler.removeCallbacks(runnable)
-                    handler.postDelayed(runnable, 3000L)
+            viewLifecycleOwner.lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                    swipe()
                 }
-            })
+            }
         }
         binding?.contentHome?.apply {
             textNowPlaying.setOnClickListener { navigateMovies(MovieType.NOW_PLAYING, "Now Playing") }
@@ -90,6 +91,15 @@ class HomeFragment : Fragment() {
             textTopRated.setOnClickListener { navigateMovies(MovieType.TOP_RATED, "Top Rated") }
             textUpcoming.setOnClickListener { navigateMovies(MovieType.UPCOMING, "Upcoming") }
         }
+    }
+
+    private tailrec suspend fun ViewPager2.swipe() {
+        delay(3000L)
+        val numberItems = adapter?.itemCount ?: 0
+        val lastIndex = if (numberItems > 0) numberItems - 1 else 0
+        val nextItem = if (currentItem == lastIndex) 0 else currentItem + 1
+        setCurrentItem(nextItem, true)
+        swipe()
     }
 
     private fun navigateMovies(movieType: MovieType, title: String) {
@@ -204,22 +214,6 @@ class HomeFragment : Fragment() {
         }
 
         binding?.contentHome?.vpImage?.setPageTransformer(transformer)
-    }
-
-    private val runnable = Runnable {
-        binding?.contentHome?.vpImage?.apply {
-            setCurrentItem(currentItem + 1, true)
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        handler.removeCallbacks(runnable)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        handler.postDelayed(runnable, 3000L)
     }
 
     override fun onDestroyView() {

@@ -7,4 +7,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark">#FF2D2D2D</color>
     <color name="black_transparent">#BF000000</color>
+    <color name="shimmer_color">#8F8F8F</color>
 </resources>

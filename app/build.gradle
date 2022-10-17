@@ -43,7 +43,6 @@ android {
 
 dependencies {
     implementation project(":core")
-
     implementation files('../app/libs/YouTubeAndroidPlayerApi.jar')
 
     //navigation

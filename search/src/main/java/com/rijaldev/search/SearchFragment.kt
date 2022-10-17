@@ -3,8 +3,10 @@ package com.rijaldev.search
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
@@ -14,7 +16,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.rijaldev.core.domain.model.Movie
 import com.rijaldev.expertmovies.di.SearchModuleDependencies
 import com.rijaldev.core.ui.adapter.LoadingStateAdapter
 import com.rijaldev.core.ui.adapter.MoviePagingAdapter
@@ -22,6 +27,8 @@ import com.rijaldev.search.databinding.FragmentSearchBinding
 import com.rijaldev.search.di.DaggerSearchComponent
 import com.rijaldev.search.viewmodel.ViewModelFactory
 import dagger.hilt.android.EntryPointAccessors
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SearchFragment : Fragment() {
@@ -78,13 +85,7 @@ class SearchFragment : Fragment() {
         val movieAdapter = MoviePagingAdapter {movie, iv ->
             viewModel.insertMovie(movie)
             binding?.searchView?.clearFocus()
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                requireActivity(),
-                Pair(iv, "iv_movie")
-            )
-            val extras = ActivityNavigatorExtras(options)
-            val data = SearchFragmentDirections.actionSearchFragmentToDetailActivity(movie)
-            findNavController().navigate(data, extras)
+            moveToDetail(movie, iv)
         }
         binding?.rvSearch?.apply {
             layoutManager = LinearLayoutManager(context)
@@ -96,14 +97,31 @@ class SearchFragment : Fragment() {
             setHasFixedSize(true)
         }
         isMoviesEmpty(movieAdapter.itemCount < 1)
-        lifecycleScope.launchWhenCreated {
-            movieAdapter.loadStateFlow.collect {
-                isMoviesEmpty(movieAdapter.itemCount < 1)
+        viewLifecycleOwner.lifecycleScope.launch {
+            movieAdapter.loadStateFlow.collectLatest {
+                isMoviesEmpty(false)
+                isOnLoading(it.refresh is LoadState.Loading)
             }
         }
         viewModel.resultData.observe(viewLifecycleOwner) {
+            isOnLoading(false)
             movieAdapter.submitData(lifecycle, it)
         }
+    }
+
+    private fun moveToDetail(movie: Movie, iv: ImageView) {
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+            requireActivity(),
+            Pair(iv, "iv_movie")
+        )
+        val extras = ActivityNavigatorExtras(options)
+        val data = SearchFragmentDirections.actionSearchFragmentToDetailActivity(movie)
+        findNavController().navigate(data, extras)
+    }
+
+    private fun isOnLoading(isLoading: Boolean) {
+        binding?.shimmer?.isVisible = isLoading
+        binding?.rvSearch?.isVisible = !isLoading
     }
 
     private fun isMoviesEmpty(isEmpty: Boolean) {

@@ -1,6 +1,7 @@
 package com.rijaldev.favorite
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.rijaldev.core.ui.adapter.MovieListAdapter
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.rijaldev.core.ui.adapter.MovieAdapter
+import com.rijaldev.core.ui.adapter.MovieGridAdapter
 import com.rijaldev.expertmovies.di.FavoriteModuleDependencies
 import com.rijaldev.favorite.databinding.FragmentFavoriteBinding
 import com.rijaldev.favorite.di.DaggerFavoriteComponent
@@ -58,7 +61,7 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun setUpView() {
-        val adapter = MovieListAdapter { movie, iv ->
+        val adapter = MovieGridAdapter { movie, iv ->
             val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 requireActivity(),
                 Pair(iv, "iv_movie")
@@ -67,13 +70,14 @@ class FavoriteFragment : Fragment() {
             val data = FavoriteFragmentDirections.actionFavoriteFragmentToDetailActivity(movie)
             findNavController().navigate(data, extras)
         }
-        binding?.rvFavorite?.apply {
-            layoutManager = LinearLayoutManager(context)
-            this.adapter = adapter
-            setHasFixedSize(true)
-        }
+        val gridCount = if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 3 else 5
         viewModel.favoriteMovies.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            binding?.rvFavorite?.apply {
+                setHasFixedSize(true)
+                layoutManager = GridLayoutManager(context, gridCount)
+                this.adapter = adapter
+            }
             isMoviesEmpty(it.isEmpty())
         }
     }

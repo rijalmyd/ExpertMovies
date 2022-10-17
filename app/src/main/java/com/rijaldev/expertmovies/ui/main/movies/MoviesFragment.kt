@@ -7,17 +7,22 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rijaldev.expertmovies.databinding.FragmentMoviesBinding
 import com.rijaldev.core.ui.adapter.LoadingStateAdapter
 import com.rijaldev.core.ui.adapter.MoviePagingAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MoviesFragment : Fragment() {
@@ -68,9 +73,12 @@ class MoviesFragment : Fragment() {
             val data = MoviesFragmentDirections.actionMoviesFragmentToDetailActivity(movie)
             findNavController().navigate(data, extras)
         }
-        val loadStateAdapter = LoadingStateAdapter {
-            movieAdapter.retry()
+        viewLifecycleOwner.lifecycleScope.launch {
+            movieAdapter.loadStateFlow.collectLatest {
+                binding?.progressBar?.isVisible = it.refresh is LoadState.Loading
+            }
         }
+        val loadStateAdapter = LoadingStateAdapter { movieAdapter.retry() }
         binding?.rvMovies?.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = movieAdapter.withLoadStateFooter(loadStateAdapter)
