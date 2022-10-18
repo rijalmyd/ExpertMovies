@@ -3,7 +3,6 @@ package com.rijaldev.search
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -17,12 +16,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rijaldev.core.domain.model.Movie
-import com.rijaldev.expertmovies.di.SearchModuleDependencies
 import com.rijaldev.core.ui.adapter.LoadingStateAdapter
 import com.rijaldev.core.ui.adapter.MoviePagingAdapter
+import com.rijaldev.expertmovies.di.SearchModuleDependencies
 import com.rijaldev.search.databinding.FragmentSearchBinding
 import com.rijaldev.search.di.DaggerSearchComponent
 import com.rijaldev.search.viewmodel.ViewModelFactory

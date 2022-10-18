@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/Theme.ExpertMovies.Black"
     tools:context=".ui.main.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -22,7 +23,7 @@
         android:id="@+id/bottom_nav_main"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/dark"
+        android:background="@color/black"
         app:itemIconTint="@drawable/bg_navigation_item"
         app:menu="@menu/main_nav_menu"
         app:labelVisibilityMode="unlabeled"

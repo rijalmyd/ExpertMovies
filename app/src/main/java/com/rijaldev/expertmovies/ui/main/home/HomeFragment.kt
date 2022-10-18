@@ -1,9 +1,6 @@
 package com.rijaldev.expertmovies.ui.main.home
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +8,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -23,11 +21,11 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.rijaldev.core.data.repository.Resource
-import com.rijaldev.core.domain.model.MovieType
 import com.rijaldev.core.domain.model.Movie
-import com.rijaldev.expertmovies.databinding.FragmentHomeBinding
+import com.rijaldev.core.domain.model.MovieType
 import com.rijaldev.core.ui.adapter.MovieAdapter
 import com.rijaldev.core.ui.adapter.SliderAdapter
+import com.rijaldev.expertmovies.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -62,7 +60,7 @@ class HomeFragment : Fragment() {
         val adapter = SliderAdapter { movie, iv ->
             moveToDetail(movie, iv)
         }
-        viewModel.trendingMovies.observe(viewLifecycleOwner) { resource ->
+        viewModel.trendingMovies().observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
@@ -118,7 +116,7 @@ class HomeFragment : Fragment() {
             rvNowPlaying.setHasFixedSize(true)
             rvNowPlaying.adapter = adapter
         }
-        viewModel.nowPlayingMovies.observe(viewLifecycleOwner) { resource ->
+        viewModel.nowPlayingMovies().observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
@@ -140,7 +138,7 @@ class HomeFragment : Fragment() {
             rvPopular.setHasFixedSize(true)
             rvPopular.adapter = adapter
         }
-        viewModel.popularMovies.observe(viewLifecycleOwner) { resource ->
+        viewModel.popularMovies().observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
@@ -162,7 +160,7 @@ class HomeFragment : Fragment() {
             rvUpcoming.setHasFixedSize(true)
             rvUpcoming.adapter = adapter
         }
-        viewModel.upComingMovies.observe(viewLifecycleOwner) { resource ->
+        viewModel.upComingMovies().observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
@@ -184,7 +182,7 @@ class HomeFragment : Fragment() {
             rvTopRated.setHasFixedSize(true)
             rvTopRated.adapter = adapter
         }
-        viewModel.topRatedMovies.observe(viewLifecycleOwner) { resource ->
+        viewModel.topRatedMovies().observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {

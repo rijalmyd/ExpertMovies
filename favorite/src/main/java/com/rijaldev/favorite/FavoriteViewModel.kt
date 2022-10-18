@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.rijaldev.core.domain.usecase.FavoriteMovieUseCase
 
-class FavoriteViewModel(favoriteMovieUseCase: FavoriteMovieUseCase) : ViewModel() {
+class FavoriteViewModel(private val favoriteMovieUseCase: FavoriteMovieUseCase) : ViewModel() {
 
-    val favoriteMovies = favoriteMovieUseCase.getFavoriteMovies().asLiveData()
+    fun favoriteMovies() = favoriteMovieUseCase.getFavoriteMovies().asLiveData()
 }

@@ -57,7 +57,7 @@ class MoviesFragment : Fragment() {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {}
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                requireActivity().onBackPressed()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.CREATED)

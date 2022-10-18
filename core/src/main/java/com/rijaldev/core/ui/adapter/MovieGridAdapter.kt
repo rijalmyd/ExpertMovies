@@ -3,10 +3,8 @@ package com.rijaldev.core.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.rijaldev.core.databinding.ItemMovieBinding
 import com.rijaldev.core.databinding.ItemMovieGridBinding
 import com.rijaldev.core.domain.model.Movie
 import com.rijaldev.core.ui.adapter.MovieAdapter.Companion.DIFF_CALLBACK

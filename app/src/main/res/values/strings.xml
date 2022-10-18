@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Expert Movies</string>
-    <string name="title_favorite">Favorite</string>
-    <string name="title_search">Search</string>
     <string name="release">Release</string>
     <string name="language">Language</string>
     <string name="rating">Rating</string>
@@ -14,8 +12,10 @@
     <string name="favorite">Favorite</string>
     <string name="more">More</string>
     <string name="add_to_favorite">Add to Favorite</string>
-    <string name="find_text">Find thousands of free movies now!</string>
-    <string name="empty_favorite">You don\'t have a favorite list yet</string>
-    <string name="search_hint">Search movies…</string>
     <string name="user_settings">User and Settings</string>
+    <string name="title_search">Search</string>
+    <string name="find_text">Find thousands of free movies now!</string>
+    <string name="search_hint">Search movies…</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="empty_favorite">You don\'t have a favorite list yet</string>
 </resources>

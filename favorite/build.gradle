@@ -7,7 +7,7 @@ plugins {
 apply from: '../shared-dependencies.gradle'
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         minSdk 21
@@ -28,6 +28,4 @@ android {
 dependencies {
     implementation project(":app")
     implementation project(":core")
-
-    implementation 'androidx.annotation:annotation:1.5.0'
 }

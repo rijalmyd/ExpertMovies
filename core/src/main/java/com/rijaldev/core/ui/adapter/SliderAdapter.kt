@@ -5,13 +5,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.rijaldev.core.databinding.ItemImageSliderBinding
 import com.rijaldev.core.domain.model.Movie
+import com.rijaldev.core.ui.adapter.MovieAdapter.Companion.DIFF_CALLBACK
 import com.rijaldev.core.utils.DataMapper
 import com.rijaldev.core.utils.Extensions.addChips
 import com.rijaldev.core.utils.Extensions.showImageInto
-import com.rijaldev.core.ui.adapter.MovieAdapter.Companion.DIFF_CALLBACK
 
 class SliderAdapter(val data: (Movie, ImageView) -> Unit) : ListAdapter<Movie, SliderAdapter.SliderViewHolder>(DIFF_CALLBACK) {
 

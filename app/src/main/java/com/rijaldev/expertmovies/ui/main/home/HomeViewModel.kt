@@ -7,15 +7,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(movieUseCase: MovieUseCase) : ViewModel() {
+class HomeViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : ViewModel() {
 
-    val trendingMovies = movieUseCase.getTrendingMovies().asLiveData()
+    fun trendingMovies() = movieUseCase.getTrendingMovies().asLiveData()
 
-    val nowPlayingMovies = movieUseCase.getMoviesNowPlaying().asLiveData()
+    fun nowPlayingMovies() = movieUseCase.getMoviesNowPlaying().asLiveData()
 
-    val popularMovies = movieUseCase.getPopularMovies().asLiveData()
+    fun popularMovies() = movieUseCase.getPopularMovies().asLiveData()
 
-    val upComingMovies = movieUseCase.getUpcomingMovies().asLiveData()
+    fun upComingMovies() = movieUseCase.getUpcomingMovies().asLiveData()
 
-    val topRatedMovies = movieUseCase.getTopRatedMovies().asLiveData()
+    fun topRatedMovies() = movieUseCase.getTopRatedMovies().asLiveData()
 }

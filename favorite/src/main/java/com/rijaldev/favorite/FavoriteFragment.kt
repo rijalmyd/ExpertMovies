@@ -14,8 +14,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.rijaldev.core.ui.adapter.MovieAdapter
 import com.rijaldev.core.ui.adapter.MovieGridAdapter
 import com.rijaldev.expertmovies.di.FavoriteModuleDependencies
 import com.rijaldev.favorite.databinding.FragmentFavoriteBinding
@@ -71,7 +69,7 @@ class FavoriteFragment : Fragment() {
             findNavController().navigate(data, extras)
         }
         val gridCount = if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 3 else 5
-        viewModel.favoriteMovies.observe(viewLifecycleOwner) {
+        viewModel.favoriteMovies().observe(viewLifecycleOwner) {
             adapter.submitList(it)
             binding?.rvFavorite?.apply {
                 setHasFixedSize(true)
