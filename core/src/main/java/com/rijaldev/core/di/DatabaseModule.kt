@@ -26,7 +26,7 @@ class DatabaseModule {
         Room.databaseBuilder(
             context,
             MovieDatabase::class.java,
-            "movie.db"
+            "movie"
         ).fallbackToDestructiveMigration()
             .openHelperFactory(factory)
             .build()
