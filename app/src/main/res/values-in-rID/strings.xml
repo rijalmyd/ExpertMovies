@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Expert Movies</string>
     <string name="release">Rilis</string>
     <string name="language">Bahasa</string>
@@ -14,6 +14,6 @@
     <string name="more">Lainnya</string>
     <string name="add_to_favorite">Tambah ke Favorit</string>
     <string name="user_settings">User dan Setting</string>
-    <string name="title_search">Cari</string>
-    <string name="title_favorite">Favorit</string>
+    <string name="title_search" tools:keep="@string/title_search">Cari</string>
+    <string name="title_favorite" tools:keep="@string/title_favorite">Favorit</string>
 </resources>
