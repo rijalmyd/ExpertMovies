@@ -1,12 +1,17 @@
 version: 2.1
  
 orbs:
-  android: circleci/android@0.2.1
+    android: circleci/android@0.2.1
+    auto_ci: nowsecure/ci-auto-orb@1.0.5
  
 jobs:
     build:
+        docker:
+            - image: circleci/openjdk:8-jdk
         executor: android/android
         steps:
+            - attach_workspace:
+                at: /tmp/myworkspace
             - checkout
             - restore_cache:
                 key: android-orb-v1-
@@ -35,3 +40,9 @@ jobs:
             - store_artifacts:  
                 path: app/build/outputs/apk/debug/
                 destination: artifact-file
+            - run: cp apkpure_app_887.apk /tmp/myworkspace/test.apk
+            - auto_ci/mobile_security_test:
+                auto_file: /tmp/myworkspace/test.apk
+                auto_wait: "30"
+                auto_score: "50"
+                auto_show_status_messages: "true"
