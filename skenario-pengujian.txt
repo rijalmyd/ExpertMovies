@@ -1,0 +1,97 @@
+1. HomeViewModelTest
+	a. Ketika getTrendingMovies dan berhasil memuat data
+		- Memastikan fungsi getTrendingMovies terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan mengembalikan Resource.Success
+		- Memastikan jumlah data sesuai dengan yang diharapkan
+
+	b. Ketika getTrendingMovies dan gagal memuat data
+		- Memastikan fungsi getTrendingMovies terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan mengembalikan Resource.Error
+		- Memastikan pesan error sesuai dengan yang diharapkan
+
+	c. Ketika getNowPlayingMovies dan berhasil memuat data
+		- Memastikan fungsi getNowPlayingMovies terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan mengembalikan Resource.Success
+		- Memastikan jumlah data sesuai dengan yang diharapkan
+
+	d. Ketika getNowPlayingMovies dan gagal memuat data
+		- Memastikan fungsi getNowPlayingMovies terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan mengembalikan Resource.Error
+		- Memastikan pesan error sesuai dengan yang diharapkan
+
+	e. Ketika getPopularMovies dan berhasil memuat data
+		- Memastikan fungsi getPopularMovies terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan mengembalikan Resource.Success
+		- Memastikan jumlah data sesuai dengan yang diharapkan
+
+	f. Ketika getPopularMovies dan gagal memuat data
+		- Memastikan fungsi getPopularMovies terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan mengembalikan Resource.Error
+		- Memastikan pesan error sesuai dengan yang diharapkan
+
+	g. Ketika getUpcomingMovies dan berhasil memuat data
+		- Memastikan fungsi getUpcomingMovies terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan mengembalikan Resource.Success
+		- Memastikan jumlah data sesuai dengan yang diharapkan
+
+	h. Ketika getUpcomingMovies dan gagal memuat data
+		- Memastikan fungsi getUpcomingMovies terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan mengembalikan Resource.Error
+		- Memastikan pesan error sesuai dengan yang diharapkan
+
+	i. Ketika getTopRatedMovies dan berhasil memuat data
+		- Memastikan fungsi getTopRatedMovies terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan mengembalikan Resource.Success
+		- Memastikan jumlah data sesuai dengan yang diharapkan
+
+	j. Ketika getTopRatedMovies dan gagal memuat data
+		- Memastikan fungsi getTopRatedMovies terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan mengembalikan Resource.Error
+		- Memastikan pesan error sesuai dengan yang diharapkan
+
+2. MoviesViewModelTest
+	a. Ketika getMoviesPaging dan berhasil memuat data
+		- Memastikan data tidak null
+		- Memastikan data sesuai dengan yang diharapkan
+		- Memastikan jumlah data sesuai dengan yang diharapkan
+		- Memastikan tipe movie sesuai dengan yang diharapkan
+
+3. DetailViewModelTest
+	a. Ketika Update status favorite
+		- Memastikan fungsi update terpanggil di movie repository
+
+	b. Ketika isFavoriteMovie = true
+		- Memastikan fungsi isFavoriteMovie terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan data bernilai true
+		- Memastikan data sesuai dengan yang diharapkan
+
+	c. Ketika isFavoriteMovie = false
+		- Memastikan fungsi isFavoriteMovie terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan data bernilai false
+		- Memastikan data sesuai dengan yang diharapkan
+
+	d. Ketika getVideos dan berhasil memuat data
+		- Memastikan fungsi getVideos terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan mengembalikan Resource.Success
+		- Memastikan jumlah data sesuai dengan yang diharapkan
+	
+	e. Ketika getVideos dan gagal memuat data
+		- Memastikan fungsi getVideos terpanggil di movie repository
+		- Memastikan data tidak null
+		- Memastikan mengembalikan Resource.Error
+		- Memastikan pesan error sesuai dengan yang diharapkan
+
+

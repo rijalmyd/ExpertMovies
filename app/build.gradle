@@ -24,7 +24,11 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -45,9 +49,13 @@ dependencies {
     implementation project(":core")
     implementation files('../app/libs/YouTubeAndroidPlayerApi.jar')
 
+    //leak canary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
+
     //navigation
     api 'androidx.navigation:navigation-fragment-ktx:2.5.2'
     api 'androidx.navigation:navigation-ui-ktx:2.5.2'
     api 'androidx.navigation:navigation-dynamic-features-fragment:2.5.2'
     implementation 'androidx.core:core-splashscreen:1.0.0'
+
 }

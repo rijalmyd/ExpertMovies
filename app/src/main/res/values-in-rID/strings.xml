@@ -15,8 +15,5 @@
     <string name="add_to_favorite">Tambah ke Favorit</string>
     <string name="user_settings">User dan Setting</string>
     <string name="title_search">Cari</string>
-    <string name="find_text">Cari ribuan film gratis sekarang!</string>
-    <string name="search_hint">Cari film…</string>
     <string name="title_favorite">Favorit</string>
-    <string name="empty_favorite">Kamu belum mempunyai daftar favorit</string>
 </resources>
