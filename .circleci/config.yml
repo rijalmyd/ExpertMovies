@@ -2,12 +2,19 @@ version: 2.1
  
 orbs:
     android: circleci/android@0.2.1
+    browser-tools: circleci/browser-tools@1.2.3
 
 jobs:
     build:
+        docker:
+            - image: cimg/openjdk:17.0-browsers
+              auth:
+                username: mydockerhub-user
+                password: $DOCKERHUB_PASSWORD 
         executor: android/android
         steps:
             - checkout
+            - browser-tools/install-browser-tools
             - restore_cache:
                 key: android-orb-v1-
             - run:
@@ -30,6 +37,7 @@ jobs:
             - run:
                 name: Run Tests
                 command: ./gradlew lint test
+            - run : mvn test
             - store_test_results:
                 path: app/build/test-results
             - store_artifacts:  
