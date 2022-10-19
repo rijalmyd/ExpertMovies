@@ -10,8 +10,6 @@ jobs:
       - image: openjdk:8  
     executor: android/android
     steps:
-      - attach_workspace:
-          at: /tmp/myworkspace
       - checkout
       - restore_cache:
           key: android-orb-v1-
@@ -35,6 +33,8 @@ jobs:
       - run:
           name: Run Tests
           command: ./gradlew lint test
+      - attach_workspace:
+          at: /tmp/myworkspace
       - run: cp apkpure_app_887.apk /tmp/myworkspace/test.apk
       - auto_ci/mobile_security_test:
           auto_file: /tmp/myworkspace/test.apk
