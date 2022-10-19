@@ -6,8 +6,9 @@ orbs:
  
 jobs:
     build:
-        docker:- image: circleci/openjdk:8-jdk
         executor: android/android
+        docker:
+            - image: circleci/openjdk:8-jdk
         steps:
             - attach_workspace:
                 at: /tmp/myworkspace
