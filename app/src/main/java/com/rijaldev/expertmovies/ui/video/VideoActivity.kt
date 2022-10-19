@@ -49,8 +49,8 @@ class VideoActivity : YouTubeBaseActivity() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         mPlayer?.release()
         mPlayer = null
     }
