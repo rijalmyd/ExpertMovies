@@ -9,13 +9,23 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val movieUseCase: MovieUseCase) : ViewModel() {
 
-    val trendingMovies = movieUseCase.getTrendingMovies().asLiveData()
+    val trendingMovies by lazy {
+        movieUseCase.getTrendingMovies().asLiveData()
+    }
 
-    val nowPlayingMovies = movieUseCase.getMoviesNowPlaying().asLiveData()
+    val nowPlayingMovies by lazy {
+        movieUseCase.getMoviesNowPlaying().asLiveData()
+    }
 
-    val popularMovies = movieUseCase.getPopularMovies().asLiveData()
+    val popularMovies by lazy {
+        movieUseCase.getPopularMovies().asLiveData()
+    }
 
-    val upComingMovies = movieUseCase.getUpcomingMovies().asLiveData()
+    val upComingMovies by lazy {
+        movieUseCase.getUpcomingMovies().asLiveData()
+    }
 
-    val topRatedMovies = movieUseCase.getTopRatedMovies().asLiveData()
+    val topRatedMovies by lazy {
+        movieUseCase.getTopRatedMovies().asLiveData()
+    }
 }
