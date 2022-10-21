@@ -47,7 +47,7 @@ class HomeViewModelTest {
     fun `when Get Trending Movies Should Not Null and Return Success`() = runTest {
         `when`(movieUseCase.getTrendingMovies()).thenReturn(flowOf(Resource.Success(dummyMovies)))
 
-        val actualMovie = homeViewModel.trendingMovies().getOrAwaitValue()
+        val actualMovie = homeViewModel.trendingMovies.getOrAwaitValue()
         Mockito.verify(movieRepository).getTrendingMovies()
         assertNotNull(actualMovie)
         assertTrue(actualMovie is Resource.Success)
@@ -58,7 +58,7 @@ class HomeViewModelTest {
     fun `when Get Trending Movies Should Not Null and Return Error`() = runTest {
         `when`(movieUseCase.getTrendingMovies()).thenReturn(flowOf(Resource.Error(ERROR_MSG)))
 
-        val actualMovie = homeViewModel.trendingMovies().getOrAwaitValue()
+        val actualMovie = homeViewModel.trendingMovies.getOrAwaitValue()
         Mockito.verify(movieRepository).getTrendingMovies()
         assertNotNull(actualMovie)
         assertTrue(actualMovie is Resource.Error)
@@ -69,7 +69,7 @@ class HomeViewModelTest {
     fun `when Get Now Playing Movies Should Not Null and Return Success`() = runTest {
         `when`(movieUseCase.getMoviesNowPlaying()).thenReturn(flowOf(Resource.Success(dummyMovies)))
 
-        val actualMovie = homeViewModel.nowPlayingMovies().getOrAwaitValue()
+        val actualMovie = homeViewModel.nowPlayingMovies.getOrAwaitValue()
         Mockito.verify(movieRepository).getMoviesNowPlaying()
         assertNotNull(actualMovie)
         assertTrue(actualMovie is Resource.Success)
@@ -80,7 +80,7 @@ class HomeViewModelTest {
     fun `when Get Now Playing Movies Should Not Null and Return Error`() = runTest {
         `when`(movieUseCase.getMoviesNowPlaying()).thenReturn(flowOf(Resource.Error(ERROR_MSG)))
 
-        val actualMovie = homeViewModel.nowPlayingMovies().getOrAwaitValue()
+        val actualMovie = homeViewModel.nowPlayingMovies.getOrAwaitValue()
         Mockito.verify(movieRepository).getMoviesNowPlaying()
         assertNotNull(actualMovie)
         assertTrue(actualMovie is Resource.Error)
@@ -91,7 +91,7 @@ class HomeViewModelTest {
     fun `when Get Popular Movies Should Not Null and Return Success`() = runTest {
         `when`(movieUseCase.getPopularMovies()).thenReturn(flowOf(Resource.Success(dummyMovies)))
 
-        val actualMovie = homeViewModel.popularMovies().getOrAwaitValue()
+        val actualMovie = homeViewModel.popularMovies.getOrAwaitValue()
         Mockito.verify(movieRepository).getPopularMovies()
         assertNotNull(actualMovie)
         assertTrue(actualMovie is Resource.Success)
@@ -102,7 +102,7 @@ class HomeViewModelTest {
     fun `when Get Popular Movies Should Not Null and Return Error`() = runTest {
         `when`(movieUseCase.getPopularMovies()).thenReturn(flowOf(Resource.Error(ERROR_MSG)))
 
-        val actualMovie = homeViewModel.popularMovies().getOrAwaitValue()
+        val actualMovie = homeViewModel.popularMovies.getOrAwaitValue()
         Mockito.verify(movieRepository).getPopularMovies()
         assertNotNull(actualMovie)
         assertTrue(actualMovie is Resource.Error)
@@ -113,7 +113,7 @@ class HomeViewModelTest {
     fun `when Get Upcoming Movies Should Not Null and Return Success`() = runTest {
         `when`(movieUseCase.getUpcomingMovies()).thenReturn(flowOf(Resource.Success(dummyMovies)))
 
-        val actualMovie = homeViewModel.upComingMovies().getOrAwaitValue()
+        val actualMovie = homeViewModel.upComingMovies.getOrAwaitValue()
         Mockito.verify(movieRepository).getUpcomingMovies()
         assertNotNull(actualMovie)
         assertTrue(actualMovie is Resource.Success)
@@ -124,7 +124,7 @@ class HomeViewModelTest {
     fun `when Get Upcoming Movies Should Not Null and Return Error`() = runTest {
         `when`(movieUseCase.getUpcomingMovies()).thenReturn(flowOf(Resource.Error(ERROR_MSG)))
 
-        val actualMovie = homeViewModel.upComingMovies().getOrAwaitValue()
+        val actualMovie = homeViewModel.upComingMovies.getOrAwaitValue()
         Mockito.verify(movieRepository).getUpcomingMovies()
         assertNotNull(actualMovie)
         assertTrue(actualMovie is Resource.Error)
@@ -135,7 +135,7 @@ class HomeViewModelTest {
     fun `when Get Top Rated Movies Should Not Null and Return Success`() = runTest {
         `when`(movieUseCase.getTopRatedMovies()).thenReturn(flowOf(Resource.Success(dummyMovies)))
 
-        val actualMovie = homeViewModel.topRatedMovies().getOrAwaitValue()
+        val actualMovie = homeViewModel.topRatedMovies.getOrAwaitValue()
         Mockito.verify(movieRepository).getTopRatedMovies()
         assertNotNull(actualMovie)
         assertTrue(actualMovie is Resource.Success)
@@ -146,7 +146,7 @@ class HomeViewModelTest {
     fun `when Get Top Rated Movies Should Not Null and Return Error`() = runTest {
         `when`(movieUseCase.getTopRatedMovies()).thenReturn(flowOf(Resource.Error(ERROR_MSG)))
 
-        val actualMovie = homeViewModel.topRatedMovies().getOrAwaitValue()
+        val actualMovie = homeViewModel.topRatedMovies.getOrAwaitValue()
         Mockito.verify(movieRepository).getTopRatedMovies()
         assertNotNull(actualMovie)
         assertTrue(actualMovie is Resource.Error)

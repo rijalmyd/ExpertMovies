@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
         val adapter = SliderAdapter { movie, iv ->
             moveToDetail(movie, iv)
         }
-        viewModel.trendingMovies().observe(viewLifecycleOwner) { resource ->
+        viewModel.trendingMovies.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
@@ -116,7 +116,7 @@ class HomeFragment : Fragment() {
             rvNowPlaying.setHasFixedSize(true)
             rvNowPlaying.adapter = adapter
         }
-        viewModel.nowPlayingMovies().observe(viewLifecycleOwner) { resource ->
+        viewModel.nowPlayingMovies.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
@@ -138,7 +138,7 @@ class HomeFragment : Fragment() {
             rvPopular.setHasFixedSize(true)
             rvPopular.adapter = adapter
         }
-        viewModel.popularMovies().observe(viewLifecycleOwner) { resource ->
+        viewModel.popularMovies.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
@@ -160,7 +160,7 @@ class HomeFragment : Fragment() {
             rvUpcoming.setHasFixedSize(true)
             rvUpcoming.adapter = adapter
         }
-        viewModel.upComingMovies().observe(viewLifecycleOwner) { resource ->
+        viewModel.upComingMovies.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
@@ -182,7 +182,7 @@ class HomeFragment : Fragment() {
             rvTopRated.setHasFixedSize(true)
             rvTopRated.adapter = adapter
         }
-        viewModel.topRatedMovies().observe(viewLifecycleOwner) { resource ->
+        viewModel.topRatedMovies.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
