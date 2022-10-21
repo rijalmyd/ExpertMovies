@@ -54,7 +54,8 @@ class MoviesViewModelTest {
 
         `when`(moviePagingUseCase.getMoviesPaging(movieType)).thenReturn(flowOf(data))
 
-        val actualMovies = moviesViewModel.getMoviesPaging(movieType).getOrAwaitValue()
+        moviesViewModel.movieType.value = MovieType.NOW_PLAYING
+        val actualMovies = moviesViewModel.getMoviesPaging.getOrAwaitValue()
 
         val differ = AsyncPagingDataDiffer(
             diffCallback = MovieAdapter.DIFF_CALLBACK,
