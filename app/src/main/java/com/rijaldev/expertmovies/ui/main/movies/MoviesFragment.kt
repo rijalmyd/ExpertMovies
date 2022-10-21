@@ -84,7 +84,8 @@ class MoviesFragment : Fragment() {
             adapter = movieAdapter.withLoadStateFooter(loadStateAdapter)
             setHasFixedSize(true)
         }
-        viewModel.getMoviesPaging(navArgs.movieType).observe(viewLifecycleOwner) {
+        viewModel.movieType.value = navArgs.movieType
+        viewModel.getMoviesPaging.observe(viewLifecycleOwner) {
             movieAdapter.submitData(lifecycle, it)
         }
     }

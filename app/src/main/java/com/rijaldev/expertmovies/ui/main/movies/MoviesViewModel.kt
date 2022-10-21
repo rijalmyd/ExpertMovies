@@ -7,13 +7,22 @@ import androidx.paging.cachedIn
 import com.rijaldev.core.domain.model.MovieType
 import com.rijaldev.core.domain.usecase.MoviePagingUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
     private val moviePagingUseCase: MoviePagingUseCase
 ) : ViewModel() {
-    fun getMoviesPaging(movieType: MovieType) = moviePagingUseCase.getMoviesPaging(movieType)
-        .cachedIn(viewModelScope)
-        .asLiveData()
+
+    val movieType = MutableStateFlow(MovieType.NOW_PLAYING)
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val getMoviesPaging by lazy {
+        movieType.flatMapLatest {
+            moviePagingUseCase.getMoviesPaging(it)
+        }.cachedIn(viewModelScope).asLiveData()
+    }
 }
