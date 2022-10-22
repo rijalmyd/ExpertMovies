@@ -65,7 +65,7 @@ class FavoriteFragment : Fragment() {
                 Pair(iv, "iv_movie")
             )
             val extras = ActivityNavigatorExtras(options)
-            val data = FavoriteFragmentDirections.actionFavoriteFragmentToDetailActivity(movie)
+            val data = FavoriteFragmentDirections.actionFavoriteFragmentToDetailNav(movie)
             findNavController().navigate(data, extras)
         }
         val gridCount = if (requireActivity().resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 3 else 5

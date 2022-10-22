@@ -73,3 +73,6 @@
 -keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
   *** rewind();
 }
+
+##-------------Begin: Module ----------
+-keep class com.rijaldev.core.domain.model.** { *; }

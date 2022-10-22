@@ -113,7 +113,7 @@ class SearchFragment : Fragment() {
             Pair(iv, "iv_movie")
         )
         val extras = ActivityNavigatorExtras(options)
-        val data = SearchFragmentDirections.actionSearchFragmentToDetailActivity(movie)
+        val data = SearchFragmentDirections.actionSearchFragmentToDetailNav(movie)
         findNavController().navigate(data, extras)
     }
 

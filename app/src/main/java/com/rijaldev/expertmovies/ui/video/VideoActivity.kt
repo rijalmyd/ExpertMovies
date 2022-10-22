@@ -1,7 +1,9 @@
 package com.rijaldev.expertmovies.ui.video
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
+import com.google.android.play.core.splitcompat.SplitCompat
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
@@ -15,6 +17,11 @@ class VideoActivity : YouTubeBaseActivity() {
         ActivityVideoBinding.inflate(layoutInflater)
     }
     private var mPlayer: YouTubePlayer? = null
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase)
+        SplitCompat.installActivity(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +62,7 @@ class VideoActivity : YouTubeBaseActivity() {
         mPlayer = null
     }
 
-    companion object {
+    private companion object {
         const val EXTRA_VIDEO = "extra_video"
     }
 }

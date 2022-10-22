@@ -1,9 +1,11 @@
 package com.rijaldev.expertmovies.ui.detail
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -11,6 +13,9 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.navigation.ActivityNavigator
 import androidx.navigation.navArgs
+import com.google.android.play.core.splitcompat.SplitCompat
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.rijaldev.core.data.repository.Resource
 import com.rijaldev.core.domain.model.Movie
 import com.rijaldev.core.domain.model.Video
@@ -31,6 +36,11 @@ class DetailActivity : AppCompatActivity() {
     private val navArgs: DetailActivityArgs by navArgs()
     private var menu: Menu? = null
     private var statusFavorite: Boolean = false
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase)
+        SplitCompat.installActivity(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,16 +102,38 @@ class DetailActivity : AppCompatActivity() {
         this?.let { movieId ->
             binding.content.thumbnailView.apply {
                 showThumbnailInto(this@DetailActivity, movieId)
-                setOnClickListener { moveToVideo(movieId) }
+                setOnClickListener {
+                    moveToVideoActivity(movieId)
+                }
             }
         } ?: run {
             binding.content.thumbnailView.isVisible = false
         }
     }
 
-    private fun moveToVideo(data: String) {
+    private fun installVideoModule(data: String) {
+        val splitInstallManager = SplitInstallManagerFactory.create(this)
+        val moduleVideo = "video"
+        if (splitInstallManager.installedModules.contains(moduleVideo)) {
+            moveToVideoActivity(data)
+        } else {
+            val request = SplitInstallRequest.newBuilder()
+                .addModule(moduleVideo)
+                .build()
+
+            splitInstallManager.startInstall(request)
+                .addOnSuccessListener {
+                    moveToVideoActivity(data)
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Error installing ${it.message}", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
+    private fun moveToVideoActivity(data: String) {
         val intent = Intent(this, VideoActivity::class.java)
-        intent.putExtra(VideoActivity.EXTRA_VIDEO, data)
+        intent.putExtra("extra_video", data)
         startActivity(intent)
     }
 

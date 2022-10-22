@@ -16,8 +16,8 @@ android {
         applicationId "com.rijaldev.expertmovies"
         minSdk 21
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 11
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -50,7 +50,7 @@ dependencies {
     implementation files('../app/libs/YouTubeAndroidPlayerApi.jar')
 
     //leak canary
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
 
     //navigation
     api 'androidx.navigation:navigation-fragment-ktx:2.5.2'
@@ -58,4 +58,6 @@ dependencies {
     api 'androidx.navigation:navigation-dynamic-features-fragment:2.5.2'
     implementation 'androidx.core:core-splashscreen:1.0.0'
 
+    //dynamic-install
+    implementation "com.google.android.play:core:1.10.3"
 }

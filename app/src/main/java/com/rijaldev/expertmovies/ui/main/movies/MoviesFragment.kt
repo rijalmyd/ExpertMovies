@@ -70,7 +70,7 @@ class MoviesFragment : Fragment() {
                 Pair(iv, "iv_movie")
             )
             val extras = ActivityNavigatorExtras(options)
-            val data = MoviesFragmentDirections.actionMoviesFragmentToDetailActivity(movie)
+            val data = MoviesFragmentDirections.actionMoviesFragmentToDetailNav(movie)
             findNavController().navigate(data, extras)
         }
         viewLifecycleOwner.lifecycleScope.launch {

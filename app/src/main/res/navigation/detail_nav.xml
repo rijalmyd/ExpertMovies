@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_nav"
+    app:startDestination="@id/detailActivity">
+
+    <argument
+        android:name="movie"
+        app:argType="com.rijaldev.core.domain.model.Movie" />
+
+    <activity
+        android:id="@+id/detailActivity"
+        android:name="com.rijaldev.expertmovies.ui.detail.DetailActivity"
+        android:label="activity_detail"
+        tools:layout="@layout/activity_detail" >
+        <argument
+            android:name="movie"
+            app:argType="com.rijaldev.core.domain.model.Movie" />
+    </activity>
+</navigation>

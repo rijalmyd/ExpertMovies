@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/searchFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.rijaldev.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_detail_nav"
+            app:destination="@id/detail_nav">
+            <argument
+                android:name="movie"
+                app:argType="com.rijaldev.core.domain.model.Movie" />
+        </action>
+    </fragment>
+    <include app:graph="@navigation/detail_nav" />
+</navigation>

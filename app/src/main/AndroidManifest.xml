@@ -7,7 +7,7 @@
 
     <queries>
         <intent>
-            <action android:name="com.google.android.youtube.api.service.START" />
+            <action android:name="com.google.android.youtube.api.service.START"/>
         </intent>
     </queries>
 
@@ -33,15 +33,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.video.VideoActivity"
-            android:configChanges="orientation|screenSize"
-            android:exported="false" />
-        <activity
             android:name=".ui.detail.DetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true"/>
+            android:exported="true" />
+        <activity android:name=".ui.video.VideoActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

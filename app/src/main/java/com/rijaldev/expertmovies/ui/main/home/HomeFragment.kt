@@ -199,7 +199,7 @@ class HomeFragment : Fragment() {
             Pair(iv, "iv_movie")
         )
         val extras = ActivityNavigatorExtras(options)
-        val data = HomeFragmentDirections.actionHomeFragmentToDetailActivity(movie)
+        val data = HomeFragmentDirections.actionHomeFragmentToDetailNav(movie)
         findNavController().navigate(data, extras)
     }
 

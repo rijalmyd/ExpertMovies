@@ -2,7 +2,6 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_nav"
     app:startDestination="@id/homeFragment">
 
     <fragment
@@ -11,45 +10,21 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_detailActivity"
-            app:destination="@id/detailActivity" />
-        <action
             android:id="@+id/action_homeFragment_to_moviesActivity"
             app:destination="@id/moviesFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.rijaldev.search.SearchFragment"
-        android:label="SearchFragment"
-        app:moduleName="search"
-        tools:layout="@layout/fragment_search" >
         <action
-            android:id="@+id/action_searchFragment_to_detailActivity"
-            app:destination="@id/detailActivity" />
+            android:id="@+id/action_homeFragment_to_detail_nav"
+            app:destination="@id/detail_nav">
+            <argument
+                android:name="movie"
+                app:argType="com.rijaldev.core.domain.model.Movie" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/moreFragment"
         android:name="com.rijaldev.expertmovies.ui.main.more.MoreFragment"
         android:label="fragment_more"
         tools:layout="@layout/fragment_more" />
-    <fragment
-        android:id="@+id/favoriteFragment"
-        android:name="com.rijaldev.favorite.FavoriteFragment"
-        app:moduleName="favorite"
-        android:label="FavoriteFragment">
-        <action
-            android:id="@+id/action_favoriteFragment_to_detailActivity"
-            app:destination="@id/detailActivity" />
-    </fragment>
-    <activity
-        android:id="@+id/detailActivity"
-        android:name="com.rijaldev.expertmovies.ui.detail.DetailActivity"
-        android:label="activity_detail"
-        tools:layout="@layout/activity_detail" >
-        <argument
-            android:name="movie"
-            app:argType="com.rijaldev.core.domain.model.Movie" />
-    </activity>
     <fragment
         android:id="@+id/moviesFragment"
         android:name="com.rijaldev.expertmovies.ui.main.movies.MoviesFragment"
@@ -62,7 +37,18 @@
             android:name="title"
             app:argType="string" />
         <action
-            android:id="@+id/action_moviesFragment_to_detailActivity"
-            app:destination="@id/detailActivity" />
+            android:id="@+id/action_moviesFragment_to_detail_nav"
+            app:destination="@id/detail_nav">
+            <argument
+                android:name="movie"
+                app:argType="com.rijaldev.core.domain.model.Movie" />
+        </action>
     </fragment>
+    <include-dynamic android:id="@+id/favoriteGraph"
+        app:moduleName="favorite"
+        app:graphResName="favorite_graph"/>
+    <include app:graph="@navigation/detail_nav"/>
+    <include-dynamic android:id="@+id/searchGraph"
+        app:moduleName="search"
+        app:graphResName="search_graph"/>
 </navigation>
